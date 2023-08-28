@@ -1,0 +1,79 @@
+<metal:main use-macro="load: layout.pt" >
+  <div class="col-md-12" metal:fill-slot="content">
+
+    <div class="row" tal:condition="len(streams) == 0">
+      <p>
+        Wellcum
+      </p>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <form action="/">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" name="stream" placeholder="stream (forsenlol, quin69, etc)" >
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <form action="/">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="directory" placeholder="directory/game (Overwatch, Dota 2, etc)" >
+            </div>
+        </form>
+      </div>
+    </div>
+
+    <table class="table" tal:condition="len(streams) > 0">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Chatters
+          </th>
+          <th>
+            Viewers
+          </th>
+          <th>
+            Ratio
+          </th>
+          <th>
+            Verdict
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tal:repeat="stream streams">
+          <td>
+            <a href="https://www.twitch.tv/${stream['name']}" target="_blank" title="view on Twitch">${stream["name"]}</a>
+          </td>
+          <td>
+            ${stream["chatters"]}
+          </td>
+          <td>
+            ${stream["viewers"]}
+          </td>
+          <td>
+            ${"{:2.0%}".format(stream["chatters"] / stream["viewers"])}
+          </td>
+          <td>
+            <span tal:condition="stream['chatters'] / stream['viewers'] <= 0.4">
+              <img src="${request.static_url('detectoid:static/img/wut.png')}">
+            </span>
+            <span tal:condition="stream['chatters'] / stream['viewers'] > 0.4 and stream['chatters'] / stream['viewers'] <= 0.6">
+              <img src="${request.static_url('detectoid:static/img/op.png')}">
+            </span>
+            <span tal:condition="stream['chatters'] / stream['viewers'] > 0.6">
+              <img src="${request.static_url('detectoid:static/img/gg.png')}">
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</metal:main>

@@ -1,0 +1,17 @@
+
+big {
+  color: #b42525;
+  font-size: 150%;
+}
+
+body {
+    background-image: url("http://i.imgur.com/pjwbZjo.gif");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-attachment: fixed;
+}
+
+nav.navbar-inverse  {
+    background-color: rgb(100, 65, 164);
+    background-image: none;
+}

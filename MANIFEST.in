@@ -1,0 +1,5 @@
+recursive-include docs *
+recursive-exclude docs/build *
+recursive-include detectoid *.ini *.cfg *.rst *.css *.pt *.js *.woff *.woff2 *.ttf *.eot
+
+global-exclude *.pyo *pyc .installed.cfg *~

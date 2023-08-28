@@ -1,0 +1,63 @@
+###
+# app configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/environment.html
+###
+
+[app:main]
+use = egg:detectoid
+
+pyramid.reload_templates = ${pyramid:reload_templates}
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+pyramid.includes = ${pyramid:includes}
+
+sqlalchemy.database_uri = ${system:sqlalchemy.database_uri}
+twitch.client_id = ${system:twitch.client_id}
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+host = ${system:host}
+port = ${system:port}
+
+###
+# logging configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/logging.html
+###
+
+[loggers]
+keys = root, detectoid, requests.packages.urllib3.connectionpool
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = ${logging:logger_root_level}
+handlers = console
+
+[logger_detectoid]
+level = ${logging:logger_detectoid_level}
+handlers =
+qualname = detectoid
+
+[logger_requests.packages.urllib3.connectionpool]
+level = ${logging:logger_requests.packages.urllib3.connectionpool_level}
+handlers =
+qualname = requests
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s

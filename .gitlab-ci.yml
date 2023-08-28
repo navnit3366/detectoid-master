@@ -1,0 +1,10 @@
+image: python:3
+
+tests:
+  script:
+  - make env
+  - make all
+  cache:
+    paths:
+    - bin/
+    - eggs/
